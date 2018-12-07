@@ -1,0 +1,33 @@
+<div *ngIf='messageLoading' class="message-overlay">
+	<h3> {{selectedUser !== null && selectedUser.username ? 'Loading Messages' : ' Select a User to chat.' }}</h3>
+</div>
+
+<footer *ngIf="selectedUser !== null && selectedUser.username">
+	<img src="" alt="bot name">
+	<div class="footer__content">
+		<h2>{{selectedUser.username}}</h2>
+		<p>
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia eligendi ducimus aspernatur 
+			sequi delectus distinctio pariatur nulla saepe eaque modi.
+			Aperiam similique facilis illum odit ad ex vel iste fugit.
+		</p>
+	</div>
+</footer>	
+<main *ngIf='!messageLoading'>
+	<ul #messageThread class="scrollbar message-thread" *ngIf="messages.length !== 0">
+		<li class="force-overflow main__message" *ngFor="let message of messages" [class.align-right]="alignMessage(message.toUserId)">
+			<div class="user__name">
+				<p>{{ selectedUser.username }}</p>
+				<p>4:20 PM</p>
+			</div>
+			<div class="user__message"><p>{{ message.message }}</p></div>
+		</li>
+	</ul>
+	<div class="main__bottom">
+		<div class="typing__message">Reverse bot is typing...</div>
+		<form [formGroup]="messageForm" novalidate class="main__chating">
+			<input class="message form-control" placeholder="Start chatting!" (keyup)="sendMessage($event)" formControlName="message">
+			<button (click)="sendMessage($event)">Send message</button>
+		</form>
+	</div>
+</main>

@@ -1,0 +1,29 @@
+<div class="alert" alert-info.class="!loading" *ngIf='chatListUsers.length === 0'>
+	{{ loading && chatListUsers.length === 0 ? 'Loading your chat list.' : 'No User Avilable to chat.'}}
+</div>
+
+<aside class="col-3">
+	<div class="aside__container">
+		<div class="aside__switcher">
+			<div class="active">Online</div>
+			<div>All</div>
+		</div>
+		<ul class="aside__content">
+			<li *ngFor="let user of chatListUsers"
+				class="single__contact aside__contacts"
+				(click)="selectedUser(user)"
+				[class.active]="isUserSelected(user.id)"
+				
+			>
+				<img src="" [ngClass]="user.online === 'Y' ? 'online' : 'offline'">
+				<div>
+					<p class="contact__name">{{ user.username }}</p>
+					<p>Some text</p>
+				</div>
+			</li>
+		</ul> 
+		<div class="aside__filter">
+			<input type="text" name="search" placeholder="Search...">
+		</div>
+	</div>
+</aside>
